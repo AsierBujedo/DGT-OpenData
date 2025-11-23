@@ -5,7 +5,7 @@ import com.dgt.opendata.service.queries.Queries;
 
 public class Service {
 
-    private IQueries queries;
+    private final IQueries queries;
 
     public Service() {
         queries = new Queries();
