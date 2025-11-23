@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-App<opendata>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.dgt.opendata.App",
+            "projectName": "opendata",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
