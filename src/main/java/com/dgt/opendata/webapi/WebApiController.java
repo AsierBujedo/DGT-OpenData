@@ -38,4 +38,12 @@ public class WebApiController {
         return new String();
     }
 
+    //#endregion
+
+    // Cargador de datos
+    @GetMapping("/api/load")
+    public ResponseEntity<Response<Object>> loadData() {
+        new ApplicationService().loadData(2025, 10);
+        return new Response<>(1, "Datos cargados").toResponseEntity();
+    }
 }
