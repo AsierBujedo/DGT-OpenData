@@ -20,10 +20,13 @@ public class Autoescuela {
     String nombre;
     @Column(name = "provincia", nullable = false)
     String provincia;
+    @Column(name = "ubicacion", nullable = false)
+    String ubicacion;
 
-    public Autoescuela(String codigo, String nombre, String provincia) {
+    public Autoescuela(String codigo, String nombre, String provincia, String ubicacion) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.provincia = provincia;
+        this.ubicacion = ubicacion;
     }
 }

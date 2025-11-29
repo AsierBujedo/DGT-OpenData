@@ -1,15 +1,11 @@
 package com.dgt.opendata;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 import com.dgt.opendata.service.utils.Common;
 
-/**
- * Unit test for simple App.
- */
 public class CommonTest {
 
     @Test
