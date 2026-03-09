@@ -26,7 +26,7 @@ public class WebApiController {
     
     @GetMapping("/api/autoescuelas/{id}")
     public ResponseEntity<Response<Object>> getAutoescuela(String id) {
-        return new Response<>(1, "No implementado").toResponseEntity();
+        return new Response<>(1, "No implementado {" + id + "}").toResponseEntity();
     }
 
     //#endregion

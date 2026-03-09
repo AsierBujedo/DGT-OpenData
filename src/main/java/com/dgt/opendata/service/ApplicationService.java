@@ -5,7 +5,15 @@ import java.util.List;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import com.dgt.opendata.models.Autoescuela;
 import com.dgt.opendata.response.Response;
@@ -36,11 +44,11 @@ public class ApplicationService {
                     .header("Accept", "application/zip")
                     .build();
             
-            java.nio.file.Path tmpDir = java.nio.file.Paths.get("tmp");
-            java.nio.file.Files.createDirectories(tmpDir);
-            java.nio.file.Path zipPath = java.nio.file.Files.createTempFile(tmpDir, "data", ".zip");
+            Path tmpDir = Paths.get("tmp");
+            Files.createDirectories(tmpDir);
+            Path zipPath = Files.createTempFile(tmpDir, "data", ".zip");
             
-            client.sendAsync(request, java.net.http.HttpResponse.BodyHandlers.ofFile(zipPath))
+            client.sendAsync(request, HttpResponse.BodyHandlers.ofFile(zipPath))
                 .thenApply(response -> {
                     unzipFile(zipPath.toString(), zipPath.getParent().toString());
                     return zipPath;
@@ -55,16 +63,16 @@ public class ApplicationService {
     }
 
     private void unzipFile(String zipFilePath, String extractPath) {
-        try (java.util.zip.ZipInputStream zis = new java.util.zip.ZipInputStream(
+        try (ZipInputStream zis = new java.util.zip.ZipInputStream(
                 new java.io.FileInputStream(zipFilePath))) {
-            java.util.zip.ZipEntry entry;
+            ZipEntry entry;
             while ((entry = zis.getNextEntry()) != null) {
-                java.nio.file.Path filePath = java.nio.file.Paths.get(extractPath, entry.getName());
+                Path filePath = Paths.get(extractPath, entry.getName());
                 if (entry.isDirectory()) {
-                    java.nio.file.Files.createDirectories(filePath);
+                    Files.createDirectories(filePath);
                 } else {
-                    java.nio.file.Files.createDirectories(filePath.getParent());
-                    java.nio.file.Files.copy(zis, filePath);
+                    Files.createDirectories(filePath.getParent());
+                    Files.copy(zis, filePath);
                 }
             }
         } catch (Exception e) {

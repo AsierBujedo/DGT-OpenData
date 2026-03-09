@@ -1,11 +1,7 @@
 package com.dgt.opendata.service.queries;
 
 import org.springframework.jdbc.core.SqlParameter;
-    import java.sql.Types;
-
-import com.dgt.opendata.models.Autoescuela;
-
-import jakarta.persistence.Id;
+import java.sql.Types;
 
 public class Queries implements IQueries {
     

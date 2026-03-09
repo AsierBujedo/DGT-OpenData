@@ -1,3 +1,6 @@
 target
 docker-compose.yml
 src/main/resources/application.properties
+data_loader/*env*
+*.zip
+*.txt
