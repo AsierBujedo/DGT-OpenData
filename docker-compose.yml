@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    restart: unless-stopped
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Standard"
+      MSSQL_SA_PASSWORD: "RootPassword123!"
+    networks:
+      - intra
+    volumes:
+      - mssql_data:/var/opt/mssql
+
+  loader:
+    build:
+      context: ./data_loader
+      dockerfile: Dockerfile
+    container_name: loader
+    restart: unless-stopped
+    depends_on:
+      - sqlserver
+    networks:
+      - intra
+
+  backend:
+    image: asierbu/dgt-backend:latest
+    container_name: backend
+    restart: unless-stopped
+    depends_on:
+      - sqlserver
+    ports:
+      - "8080:8080"
+    networks:
+      - intra
+
+volumes:
+  mssql_data:
+
+networks:
+  intra:
+    driver: bridge
