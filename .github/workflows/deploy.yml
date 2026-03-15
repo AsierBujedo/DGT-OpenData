@@ -43,5 +43,5 @@ jobs:
           port: 22
           script: |
             cd ~/opendata/dgt
-            docker compose pull java_app
-            docker compose up -d java_app
+            docker compose pull backend
+            docker compose up -d backend
