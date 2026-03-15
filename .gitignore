@@ -1,5 +1,4 @@
 target
-src/main/resources/application.properties
 data_loader/*env*
 *.zip
 *.txt
