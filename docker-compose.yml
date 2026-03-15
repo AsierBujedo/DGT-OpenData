@@ -28,7 +28,7 @@ services:
       - intra
 
   backend:
-    image: asierbu/dgt-backend:latest
+    image: asierbu/dgt-java-app:latest
     container_name: backend
     restart: unless-stopped
     depends_on:
