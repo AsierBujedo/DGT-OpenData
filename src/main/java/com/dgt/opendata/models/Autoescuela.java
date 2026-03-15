@@ -1,32 +1,18 @@
 package com.dgt.opendata.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name = "Autoescuelas")
 public class Autoescuela {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false, unique = true)
-    private Long id;
-    @Column(name = "codigo", nullable = false)
-    String codigo;
-    @Column(name = "nombre", nullable = false)
-    String nombre;
-    @Column(name = "provincia", nullable = false)
-    String provincia;
-    @Column(name = "ubicacion", nullable = false)
-    String ubicacion;
 
-    public Autoescuela(String codigo, String nombre, String provincia, String ubicacion) {
-        this.codigo = codigo;
-        this.nombre = nombre;
+    public String id_autoescuela;
+    public String codigo_autoescuela;
+    public String nombre_autoescuela;
+    public String provincia;
+    public String seccion;
+
+    public Autoescuela(String id_autoescuela, String codigo_autoescuela, String nombre_autoescuela, String provincia, String seccion) {
+        this.id_autoescuela = id_autoescuela;
+        this.codigo_autoescuela = codigo_autoescuela;
+        this.nombre_autoescuela = nombre_autoescuela;
         this.provincia = provincia;
-        this.ubicacion = ubicacion;
+        this.seccion = seccion;
     }
 }
