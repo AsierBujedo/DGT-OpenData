@@ -68,6 +68,18 @@
   <build>
     <pluginManagement>
       <plugins>
+      <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.2.0</version>
+            <configuration>
+                <archive>
+                    <manifest>
+                        <mainClass>com.dgt.opendata.App</mainClass>
+                    </manifest>
+                </archive>
+            </configuration>
+        </plugin>
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.4.0</version>
