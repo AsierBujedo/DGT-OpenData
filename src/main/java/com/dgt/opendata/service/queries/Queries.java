@@ -1,17 +1,25 @@
 package com.dgt.opendata.service.queries;
 
 import java.util.Properties;
+
+import javax.sql.DataSource;
+
+import org.springframework.stereotype.Repository;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Repository
 public class Queries implements IQueries {
     
-    private Connection connection;
+    private final DataSource dataSource;
 
-    public Queries() { }
+    public Queries(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     public ResultSet executeQueryGetAutoescuelas(String codigo_autoescuela, String nombre_autoescuela, String provincia, String seccion) throws IOException, SQLException {
         String sql = "{call [DGTOpendata].[dbo].[Autoescuelas_GetAutoescuela](?, ?, ?, ?)}";
@@ -24,11 +32,7 @@ public class Queries implements IQueries {
             props.load(input);
         }
 
-        connection = DriverManager.getConnection(
-            props.getProperty("spring.datasource.url"),
-            props.getProperty("spring.datasource.username"),
-            props.getProperty("spring.datasource.password")
-        );
+        Connection connection = dataSource.getConnection();
 
         var stmt = connection.prepareCall(sql);
 
@@ -68,11 +72,7 @@ public class Queries implements IQueries {
             props.load(input);
         }
 
-        connection = DriverManager.getConnection(
-            props.getProperty("spring.datasource.url"),
-            props.getProperty("spring.datasource.username"),
-            props.getProperty("spring.datasource.password")
-        );
+        Connection connection = dataSource.getConnection();
 
         var stmt = connection.prepareCall(sql);
         return stmt.executeQuery();
@@ -89,11 +89,7 @@ public class Queries implements IQueries {
             props.load(input);
         }
 
-        connection = DriverManager.getConnection(
-            props.getProperty("spring.datasource.url"),
-            props.getProperty("spring.datasource.username"),
-            props.getProperty("spring.datasource.password")
-        );
+        Connection connection = dataSource.getConnection();
 
         var stmt = connection.prepareCall(sql);
         stmt.setString(1, id_autoescuela);
@@ -111,11 +107,7 @@ public class Queries implements IQueries {
             props.load(input);
         }
 
-        connection = DriverManager.getConnection(
-            props.getProperty("spring.datasource.url"),
-            props.getProperty("spring.datasource.username"),
-            props.getProperty("spring.datasource.password")
-        );
+        Connection connection = dataSource.getConnection();
 
         var stmt = connection.prepareCall(sql);
         stmt.setString(1, id_autoescuela);

@@ -1,6 +1,9 @@
 package com.dgt.opendata.service;
 
 import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,12 +12,13 @@ import com.dgt.opendata.models.Centro;
 import com.dgt.opendata.service.queries.IQueries;
 import com.dgt.opendata.service.queries.Queries;
 
+@Service
 public class ApplicationService {
     
     private final IQueries queries;
 
-    public ApplicationService() {
-        queries = new Queries();
+    public ApplicationService(IQueries queries) {
+        this.queries = queries;
     }
 
     public List<Autoescuela> getAutoescuelas(String codigo_autoescuela, String nombre_autoescuela, String provincia, String seccion) throws Exception {
