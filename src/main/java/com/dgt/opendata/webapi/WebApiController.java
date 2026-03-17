@@ -19,6 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 public class WebApiController {
 
+    private final ApplicationService applicationService;
+
+    public WebApiController(ApplicationService applicationService) {
+        this.applicationService = applicationService;
+    }
+
     //#region Autoescuelas
 
     @GetMapping("/api/autoescuelas")
@@ -29,7 +35,7 @@ public class WebApiController {
             @RequestParam(value = "seccion", required = false) String seccion
     ) {
         try {
-            return new Response<>(new ApplicationService().getAutoescuelas(
+            return new Response<>(applicationService.getAutoescuelas(
                 codigoAutoescuela, nombreAutoescuela, provincia, seccion
             )).toResponseEntity();
         } catch (Exception e) {
@@ -40,7 +46,7 @@ public class WebApiController {
     @GetMapping("/api/last-update")
     public ResponseEntity<Response<Date>> getLastUpdate() {
         try {
-            return new Response<>(new ApplicationService().getLastUpdate()).toResponseEntity();
+            return new Response<>(applicationService.getLastUpdate()).toResponseEntity();
         } catch (Exception e) {
             return new Response<Date>(500, "Error al obtener la fecha de última actualización; " + e.getMessage()).toResponseEntity();
         }
@@ -49,7 +55,7 @@ public class WebApiController {
     @GetMapping("/api/autoescuelas/{id}/permisos")
     public ResponseEntity<Response<List<String>>> getPermisosByAutoescuela(@PathVariable String id) {
         try {
-            return new Response<>(new ApplicationService().getPermisosAutoescuela(id)).toResponseEntity();
+            return new Response<>(applicationService.getPermisosAutoescuela(id)).toResponseEntity();
         } catch (Exception e) {
             return new Response<List<String>>(500, "Error al obtener los permisos de la autoescuela; " + e.getMessage()).toResponseEntity();
         }
@@ -58,7 +64,7 @@ public class WebApiController {
     @GetMapping("/api/autoescuelas/{id}/centros")
     public ResponseEntity<Response<List<Centro>>> getCentrosByAutoescuela(@PathVariable String id) {
         try {
-            return new Response<>(new ApplicationService().getCentrosByAutoescuela(id)).toResponseEntity();
+            return new Response<>(applicationService.getCentrosByAutoescuela(id)).toResponseEntity();
         } catch (Exception e) {
             return new Response<List<Centro>>(500, "Error al obtener los centros de la autoescuela; " + e.getMessage()).toResponseEntity();
         }
