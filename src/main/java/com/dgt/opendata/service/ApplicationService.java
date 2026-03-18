@@ -81,7 +81,7 @@ public class ApplicationService {
 
         if (isAddition == null) {
             isAddition = true;
-        } else
+        }
 
         try (var rs = queries.executeQueryGetExamen(codigo_autoescuela, codigo_seccion, provincia, centro_examen, permiso, tipo_examen, mes, anyo, isAddition)) {
             while (rs.next()) {
