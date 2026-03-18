@@ -76,7 +76,7 @@ public class ApplicationService {
         return centros;
     }
 
-    public List<Examen> getExamenes(String codigo_autoescuela, String codigo_seccion, String provincia, String centro_examen, String permiso, String tipo_examen, int mes, int anyo, boolean isAddition) throws Exception {
+    public List<Examen> getExamenes(String codigo_autoescuela, String codigo_seccion, String provincia, String centro_examen, String permiso, String tipo_examen, String mes, String anyo, boolean isAddition) throws Exception {
         List<Examen> examenes = new ArrayList<>();
 
         try (var rs = queries.executeQueryGetExamen(codigo_autoescuela, codigo_seccion, provincia, centro_examen, permiso, tipo_examen, mes, anyo, isAddition)) {
@@ -84,13 +84,17 @@ public class ApplicationService {
                 examenes.add(new Examen(
                     rs.getString("nombre_autoescuela"),
                     rs.getString("provincia"),
-                    rs.getString("seccion"),
+                    rs.getString("codigo_seccion"),
+                    rs.getString("tipo_examen"),
+                    rs.getString("nombre_permiso"),
                     rs.getLong("numero_aptos"),
                     rs.getLong("numero_no_aptos"),
                     rs.getLong("numero_aptos_1"),
                     rs.getLong("numero_aptos_2"),
                     rs.getLong("numero_aptos_3o4"),
-                    rs.getLong("numero_aptos_mas_5")
+                    rs.getLong("numero_aptos_mas_5"),
+                    rs.getString("mes"),
+                    rs.getString("anyo")
                 ));
             }
         }

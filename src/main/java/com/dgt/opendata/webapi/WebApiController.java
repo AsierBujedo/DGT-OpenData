@@ -26,8 +26,6 @@ public class WebApiController {
         this.applicationService = applicationService;
     }
 
-    //#region Autoescuelas
-
     @GetMapping("/api/autoescuelas")
     public ResponseEntity<Response<List<Autoescuela>>> getAutoescuelas(
             @RequestParam(value = "codigo_autoescuela", required = false) String codigoAutoescuela,
@@ -70,8 +68,6 @@ public class WebApiController {
             return new Response<List<Centro>>(500, "Error al obtener los centros de la autoescuela; " + e.getMessage()).toResponseEntity();
         }
     }
-
-    //#endregion
     
     @GetMapping("/api/examenes")
     public ResponseEntity<Response<List<Examen>>> getExamenes(
@@ -81,8 +77,8 @@ public class WebApiController {
             @RequestParam(value = "centro_examen", required = false) String centroExamen,
             @RequestParam(value = "permiso", required = false) String permiso,
             @RequestParam(value = "tipo_examen", required = false) String tipoExamen,
-            @RequestParam(value = "mes", required = false) Integer mes,
-            @RequestParam(value = "anyo", required = false) Integer anyo,
+            @RequestParam(value = "mes", required = false) String mes,
+            @RequestParam(value = "anyo", required = false) String anyo,
             @RequestParam(value = "isAddition", required = false) Boolean isAddition
     ) {
         try {
@@ -93,23 +89,4 @@ public class WebApiController {
             return new Response<List<Examen>>(500, "Error al obtener los exámenes; " + e.getMessage()).toResponseEntity();
         }
     }
-    
-    
-    
-/* 
-    @GetMapping("/api/autoescuelas/{id}")
-    public ResponseEntity<Response<Object>> getAutoescuela(String id) {
-        return new Response<>(1, "No implementado {" + id + "}").toResponseEntity();
-    }
-*/
-    //#endregion
-
-    //#region Consultas de datos
-
-    @GetMapping("path")
-    public String getMethodName(@RequestParam String param) {
-        return new String();
-    }
-
-    //#endregion
 }
