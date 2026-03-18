@@ -1,7 +1,5 @@
 package com.dgt.opendata.service.queries;
 
-import java.util.Properties;
-
 import javax.sql.DataSource;
 
 import org.springframework.stereotype.Repository;
@@ -81,7 +79,7 @@ public class Queries implements IQueries {
         return stmt.executeQuery();
     }
 
-    public ResultSet executeQueryGetExamen(String codigo_autoescuela, String codigo_seccion, String provincia, String centro_examen, String permiso, String tipo_examen, int mes, int anyo, boolean isAddition) throws IOException, SQLException {
+    public ResultSet executeQueryGetExamen(String codigo_autoescuela, String codigo_seccion, String provincia, String centro_examen, String permiso, String tipo_examen, String mes, String anyo, boolean isAddition) throws IOException, SQLException {
         String sql = "{call [DGTOpendata].[dbo].[Examenes_GetExamenes](?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
         Connection connection = dataSource.getConnection();
@@ -118,17 +116,18 @@ public class Queries implements IQueries {
         } else {
             stmt.setNull(paramIndex++, java.sql.Types.VARCHAR);
         }
-        if (mes != 0) {
-            stmt.setInt(paramIndex++, mes);
+        if (mes != null) {
+            stmt.setString(paramIndex++, mes);
         } else {
-            stmt.setNull(paramIndex++, java.sql.Types.INTEGER);
+            stmt.setNull(paramIndex++, java.sql.Types.VARCHAR);
         }
-        if (anyo != 0) {
-            stmt.setInt(paramIndex++, anyo);
+        if (anyo != null) {
+            stmt.setString(paramIndex++, anyo);
         } else {
-            stmt.setNull(paramIndex++, java.sql.Types.INTEGER);
+            stmt.setNull(paramIndex++, java.sql.Types.VARCHAR);
         }
         stmt.setBoolean(paramIndex++, isAddition);
+        
         return stmt.executeQuery();
     }
 }

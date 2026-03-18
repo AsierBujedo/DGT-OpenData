@@ -81,8 +81,8 @@ public class WebApiController {
             @RequestParam(value = "centro_examen", required = false) String centroExamen,
             @RequestParam(value = "permiso", required = false) String permiso,
             @RequestParam(value = "tipo_examen", required = false) String tipoExamen,
-            @RequestParam(value = "mes", required = false) Integer mes,
-            @RequestParam(value = "anyo", required = false) Integer anyo,
+            @RequestParam(value = "mes", required = false) String mes,
+            @RequestParam(value = "anyo", required = false) String anyo,
             @RequestParam(value = "isAddition", required = false) Boolean isAddition
     ) {
         try {
@@ -94,14 +94,6 @@ public class WebApiController {
         }
     }
     
-    
-    
-/* 
-    @GetMapping("/api/autoescuelas/{id}")
-    public ResponseEntity<Response<Object>> getAutoescuela(String id) {
-        return new Response<>(1, "No implementado {" + id + "}").toResponseEntity();
-    }
-*/
     //#endregion
 
     //#region Consultas de datos
