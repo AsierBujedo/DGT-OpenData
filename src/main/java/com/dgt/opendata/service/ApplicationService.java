@@ -9,8 +9,8 @@ import java.util.Date;
 
 import com.dgt.opendata.models.Autoescuela;
 import com.dgt.opendata.models.Centro;
+import com.dgt.opendata.models.Examen;
 import com.dgt.opendata.service.queries.IQueries;
-import com.dgt.opendata.service.queries.Queries;
 
 @Service
 public class ApplicationService {
@@ -74,5 +74,27 @@ public class ApplicationService {
         }
 
         return centros;
+    }
+
+    public List<Examen> getExamenes(String codigo_autoescuela, String codigo_seccion, String provincia, String centro_examen, String permiso, String tipo_examen, int mes, int anyo, boolean isAddition) throws Exception {
+        List<Examen> examenes = new ArrayList<>();
+
+        try (var rs = queries.executeQueryGetExamen(codigo_autoescuela, codigo_seccion, provincia, centro_examen, permiso, tipo_examen, mes, anyo, isAddition)) {
+            while (rs.next()) {
+                examenes.add(new Examen(
+                    rs.getString("nombre_autoescuela"),
+                    rs.getString("provincia"),
+                    rs.getString("seccion"),
+                    rs.getLong("numero_aptos"),
+                    rs.getLong("numero_no_aptos"),
+                    rs.getLong("numero_aptos_1"),
+                    rs.getLong("numero_aptos_2"),
+                    rs.getLong("numero_aptos_3o4"),
+                    rs.getLong("numero_aptos_mas_5")
+                ));
+            }
+        }
+
+        return examenes;
     }
 }

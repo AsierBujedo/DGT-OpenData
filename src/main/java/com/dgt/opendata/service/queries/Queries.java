@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -23,14 +22,6 @@ public class Queries implements IQueries {
 
     public ResultSet executeQueryGetAutoescuelas(String codigo_autoescuela, String nombre_autoescuela, String provincia, String seccion) throws IOException, SQLException {
         String sql = "{call [DGTOpendata].[dbo].[Autoescuelas_GetAutoescuela](?, ?, ?, ?)}";
-
-        Properties props = new Properties();
-        try (var input = getClass().getClassLoader().getResourceAsStream("application.properties")) {
-            if (input == null) {
-                throw new IOException("Unable to find application.properties in classpath");
-            }
-            props.load(input);
-        }
 
         Connection connection = dataSource.getConnection();
 
@@ -64,14 +55,6 @@ public class Queries implements IQueries {
     public ResultSet executeQueryGetLastUpdate() throws IOException, SQLException {
         String sql = "{call [DGTOpendata].[dbo].[Ficheros_GetUltimaFecha]()}";
 
-        Properties props = new Properties();
-        try (var input = getClass().getClassLoader().getResourceAsStream("application.properties")) {
-            if (input == null) {
-                throw new IOException("Unable to find application.properties in classpath");
-            }
-            props.load(input);
-        }
-
         Connection connection = dataSource.getConnection();
 
         var stmt = connection.prepareCall(sql);
@@ -80,14 +63,6 @@ public class Queries implements IQueries {
 
     public ResultSet executeQueryGetPermisosAutoescuela(String id_autoescuela) throws IOException, SQLException {
         String sql = "{call [DGTOpendata].[dbo].[Permisos_GetPermisosByAutoescuela](?)}";
-
-        Properties props = new Properties();
-        try (var input = getClass().getClassLoader().getResourceAsStream("application.properties")) {
-            if (input == null) {
-                throw new IOException("Unable to find application.properties in classpath");
-            }
-            props.load(input);
-        }
 
         Connection connection = dataSource.getConnection();
 
@@ -99,18 +74,61 @@ public class Queries implements IQueries {
     public ResultSet executeQueryGetJefaturasPorAutoescuela(String id_autoescuela) throws IOException, SQLException {
         String sql = "{call [DGTOpendata].[dbo].[Jefaturas_GetProvinciasYCentros](?)}";
 
-        Properties props = new Properties();
-        try (var input = getClass().getClassLoader().getResourceAsStream("application.properties")) {
-            if (input == null) {
-                throw new IOException("Unable to find application.properties in classpath");
-            }
-            props.load(input);
-        }
-
         Connection connection = dataSource.getConnection();
 
         var stmt = connection.prepareCall(sql);
         stmt.setString(1, id_autoescuela);
+        return stmt.executeQuery();
+    }
+
+    public ResultSet executeQueryGetExamen(String codigo_autoescuela, String codigo_seccion, String provincia, String centro_examen, String permiso, String tipo_examen, int mes, int anyo, boolean isAddition) throws IOException, SQLException {
+        String sql = "{call [DGTOpendata].[dbo].[Examenes_GetExamenes](?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+
+        Connection connection = dataSource.getConnection();
+
+        var stmt = connection.prepareCall(sql);
+        int paramIndex = 1;
+        if (codigo_autoescuela != null) {
+            stmt.setString(paramIndex++, codigo_autoescuela);
+        } else {
+            stmt.setNull(paramIndex++, java.sql.Types.VARCHAR);
+        }
+        if (codigo_seccion != null) {
+            stmt.setString(paramIndex++, codigo_seccion);
+        } else {
+            stmt.setNull(paramIndex++, java.sql.Types.VARCHAR);
+        }
+        if (provincia != null) {
+            stmt.setString(paramIndex++, provincia);
+        } else {
+            stmt.setNull(paramIndex++, java.sql.Types.VARCHAR);
+        }
+        if (centro_examen != null) {
+            stmt.setString(paramIndex++, centro_examen);
+        } else {
+            stmt.setNull(paramIndex++, java.sql.Types.VARCHAR);
+        }
+        if (permiso != null) {
+            stmt.setString(paramIndex++, permiso);
+        } else {
+            stmt.setNull(paramIndex++, java.sql.Types.VARCHAR);
+        }
+        if (tipo_examen != null) {
+            stmt.setString(paramIndex++, tipo_examen);
+        } else {
+            stmt.setNull(paramIndex++, java.sql.Types.VARCHAR);
+        }
+        if (mes != 0) {
+            stmt.setInt(paramIndex++, mes);
+        } else {
+            stmt.setNull(paramIndex++, java.sql.Types.INTEGER);
+        }
+        if (anyo != 0) {
+            stmt.setInt(paramIndex++, anyo);
+        } else {
+            stmt.setNull(paramIndex++, java.sql.Types.INTEGER);
+        }
+        stmt.setBoolean(paramIndex++, isAddition);
         return stmt.executeQuery();
     }
 }

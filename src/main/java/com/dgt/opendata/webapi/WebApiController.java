@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dgt.opendata.models.Autoescuela;
 import com.dgt.opendata.models.Centro;
+import com.dgt.opendata.models.Examen;
 import com.dgt.opendata.response.Response;
 import com.dgt.opendata.service.ApplicationService;
 
@@ -71,6 +72,27 @@ public class WebApiController {
     }
 
     //#endregion
+    
+    @GetMapping("/api/examenes")
+    public ResponseEntity<Response<List<Examen>>> getExamenes(
+            @RequestParam(value = "codigo_autoescuela", required = false) String codigoAutoescuela,
+            @RequestParam(value = "codigo_seccion", required = false) String codigoSeccion,
+            @RequestParam(value = "provincia", required = false) String provincia,
+            @RequestParam(value = "centro_examen", required = false) String centroExamen,
+            @RequestParam(value = "permiso", required = false) String permiso,
+            @RequestParam(value = "tipo_examen", required = false) String tipoExamen,
+            @RequestParam(value = "mes", required = false) Integer mes,
+            @RequestParam(value = "anyo", required = false) Integer anyo,
+            @RequestParam(value = "isAddition", required = false) Boolean isAddition
+    ) {
+        try {
+            return new Response<>(applicationService.getExamenes(
+                codigoAutoescuela, codigoSeccion, provincia, centroExamen, permiso, tipoExamen, mes, anyo, isAddition
+            )).toResponseEntity();
+        } catch (Exception e) {
+            return new Response<List<Examen>>(500, "Error al obtener los exámenes; " + e.getMessage()).toResponseEntity();
+        }
+    }
     
     
     
