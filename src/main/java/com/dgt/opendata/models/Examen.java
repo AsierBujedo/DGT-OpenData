@@ -1,19 +1,19 @@
 package com.dgt.opendata.models;
 
 public class Examen {
-    private String nombre_autoescuela;
-    private String provincia;
-    private String seccion;
-    private String tipo_examen;
-    private String nombre_permiso;
-    private Long numero_aptos;
-    private Long numero_no_aptos;
-    private Long numero_aptos_1;
-    private Long numero_aptos_2;
-    private Long numero_aptos_3o4;
-    private Long numero_aptos_mas_5;
-    private String mes;
-    private String anyo;
+    public String nombre_autoescuela;
+    public String provincia;
+    public String seccion;
+    public String tipo_examen;
+    public String nombre_permiso;
+    public Long numero_aptos;
+    public Long numero_no_aptos;
+    public Long numero_aptos_1;
+    public Long numero_aptos_2;
+    public Long numero_aptos_3o4;
+    public Long numero_aptos_mas_5;
+    public String mes;
+    public String anyo;
 
     public Examen(String nombre_autoescuela, String provincia, String seccion, String tipo_examen, 
                   String nombre_permiso, Long numero_aptos, Long numero_no_aptos, Long numero_aptos_1, 
