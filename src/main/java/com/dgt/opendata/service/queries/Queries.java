@@ -47,7 +47,10 @@ public class Queries implements IQueries {
             stmt.setNull(paramIndex++, java.sql.Types.VARCHAR);
         }
 
-        return stmt.executeQuery();
+        var result =stmt.executeQuery();
+        stmt.close();
+        connection.close();
+        return result;
     }
 
     public ResultSet executeQueryGetLastUpdate() throws IOException, SQLException {
@@ -56,7 +59,11 @@ public class Queries implements IQueries {
         Connection connection = dataSource.getConnection();
 
         var stmt = connection.prepareCall(sql);
-        return stmt.executeQuery();
+
+        var result = stmt.executeQuery();
+        stmt.close();
+        connection.close();
+        return result;
     }
 
     public ResultSet executeQueryGetPermisosAutoescuela(String id_autoescuela) throws IOException, SQLException {
@@ -66,7 +73,11 @@ public class Queries implements IQueries {
 
         var stmt = connection.prepareCall(sql);
         stmt.setString(1, id_autoescuela);
-        return stmt.executeQuery();
+
+        var result = stmt.executeQuery();
+        stmt.close();
+        connection.close();
+        return result;
     }
 
     public ResultSet executeQueryGetJefaturasPorAutoescuela(String id_autoescuela) throws IOException, SQLException {
@@ -76,7 +87,11 @@ public class Queries implements IQueries {
 
         var stmt = connection.prepareCall(sql);
         stmt.setString(1, id_autoescuela);
-        return stmt.executeQuery();
+
+        var result =stmt.executeQuery();
+        stmt.close();
+        connection.close();
+        return result;
     }
 
     public ResultSet executeQueryGetExamen(String codigo_autoescuela, String codigo_seccion, String provincia, String centro_examen, String permiso, String tipo_examen, String mes, String anyo, boolean isAddition) throws IOException, SQLException {
@@ -127,6 +142,10 @@ public class Queries implements IQueries {
             stmt.setNull(paramIndex++, java.sql.Types.VARCHAR);
         }
         stmt.setBoolean(paramIndex++, isAddition);
-        return stmt.executeQuery();
+        
+          var result =stmt.executeQuery();
+        stmt.close();
+        connection.close();
+        return result;
     }
 }
