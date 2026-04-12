@@ -90,7 +90,7 @@ public class ApplicationService {
                     rs.getString("provincia").trim(),
                     rs.getString("codigo_seccion").trim(),
                     rs.getString("tipo_examen").trim(),
-                    rs.getString("nombre_permiso"),
+                    rs.getString("nombre_permiso").trim(),
                     rs.getLong("numero_aptos"),
                     rs.getLong("numero_no_aptos"),
                     rs.getLong("numero_aptos_1"),
