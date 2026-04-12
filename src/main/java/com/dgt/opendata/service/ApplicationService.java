@@ -27,11 +27,11 @@ public class ApplicationService {
         try (var rs = queries.executeQueryGetAutoescuelas(codigo_autoescuela, nombre_autoescuela, provincia, seccion)) {
             while (rs.next()) {
                 autoescuelas.add(new Autoescuela(
-                    rs.getString("id"),
-                    rs.getString("codigo_autoescuela"),
-                    rs.getString("nombre_autoescuela"),
-                    rs.getString("desc_provincia"),
-                    rs.getString("codigo_seccion")
+                    rs.getString("id").trim(),
+                    rs.getString("codigo_autoescuela").trim(),
+                    rs.getString("nombre_autoescuela").trim(),
+                    rs.getString("desc_provincia").trim(),
+                    rs.getString("codigo_seccion").trim()
                 ));
             }
         }
@@ -67,8 +67,8 @@ public class ApplicationService {
         try (var rs = queries.executeQueryGetJefaturasPorAutoescuela(id_autoescuela)) {
             while (rs.next()) {
                 centros.add(new Centro(
-                    rs.getString("provincia"),
-                    rs.getString("centro")
+                    rs.getString("provincia").trim(),
+                    rs.getString("centro").trim()
                 ));
             }
         }
@@ -86,10 +86,10 @@ public class ApplicationService {
         try (var rs = queries.executeQueryGetExamen(codigo_autoescuela, codigo_seccion, provincia, centro_examen, permiso, tipo_examen, mes, anyo, isAddition)) {
             while (rs.next()) {
                 examenes.add(new Examen(
-                    rs.getString("nombre_autoescuela"),
-                    rs.getString("provincia"),
-                    rs.getString("codigo_seccion"),
-                    rs.getString("tipo_examen"),
+                    rs.getString("nombre_autoescuela").trim(),
+                    rs.getString("provincia").trim(),
+                    rs.getString("codigo_seccion").trim(),
+                    rs.getString("tipo_examen").trim(),
                     rs.getString("nombre_permiso"),
                     rs.getLong("numero_aptos"),
                     rs.getLong("numero_no_aptos"),
@@ -97,8 +97,8 @@ public class ApplicationService {
                     rs.getLong("numero_aptos_2"),
                     rs.getLong("numero_aptos_3o4"),
                     rs.getLong("numero_aptos_mas_5"),
-                    rs.getString("mes"),
-                    rs.getString("anyo")
+                    rs.getString("mes").trim(),
+                    rs.getString("anyo").trim()
                 ));
             }
         }
